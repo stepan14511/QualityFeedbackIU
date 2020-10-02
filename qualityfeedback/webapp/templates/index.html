@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+    <link rel="shortcut icon" href="../static/images/favicon.ico" />
+</head>
+<body>
+    <style>
+    body {
+        background-image: url('../static/images/background.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+    .center_main {
+        margin: auto;
+        margin-top: 100px;
+        width: 500px;
+        height: 600px;
+        background-color: #72bb53;
+        padding: 10px;
+        text-align: center;
+    }
+    .center_h{
+        margin: auto;
+        width: 50%;
+    }
+    .input_field{
+        height: 30px;
+        border: 2px solid black;
+        border-radius: 5px;
+    }
+    .button_login{
+        width: 20%;
+        margin-top: 30px;
+        height: 40px;
+    }
+    </style>
+
+    <div class="center_main">
+        <form>
+            <h1 class="center_h" style="margin-top: 100px;">Login</h1>
+            <input class="center_h input_field" type="email" required placeholder="Email" style="margin-top: 100px;"></input>
+            <input class="center_h input_field" type="password" required placeholder="Password" style="margin-top: 20px;"></input>
+            <br/><input class="center_h input_field button_login" type="submit" value="Log in">
+        </form>
+        <br/><a href="SIGN_UP_PAGE_TO_BE_INSERTED"> Sign up</a>
+    </div>
+</body>
