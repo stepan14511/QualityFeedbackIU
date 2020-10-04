@@ -1,0 +1,11 @@
+version: '3.3'
+
+services:
+        postgres:
+                image: postgres
+                environment:
+                        POSTGRES_USER: 'user'
+                        POSTGRES_DB: 'qfeedback'
+                        POSTGRES_PASSWORD: 'AhvRbjN/FaTaKrYy'
+                ports:
+                        - '5432:5432'

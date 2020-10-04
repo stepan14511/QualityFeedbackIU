@@ -3,7 +3,17 @@ Quality Feedback project for FSE course in IU 2020.
 
 ## Installation
 
-### Linux
+### Run postgresql
+
+#### Linux/MacOS
+
+Setup docker-compose, go to `./postgres` and run:
+
+```sudo docker-compose up --build```
+
+### Run the server
+
+#### Linux/MacOS
 
 Make sure that you have python3 and pip3 installed. After that install requirements:
 
@@ -13,9 +23,9 @@ To start the server go to `./qualityfeedback/` and run:
 
 ```python3 ./manage.py runserver```
 
-### Windows
+#### Windows
 
-#### cmd
+##### cmd
 
 Also, to run the server you should have python 3.X installed. Install requirements:
 
@@ -28,7 +38,7 @@ cd qualityfeedback
 python ./manage.py runserver
 ```
 
-#### PyCharm
+##### PyCharm
 
 Open PyCharm and press `Get from Version Control`. Then enter the link to this repo and press `Clone`.
 
