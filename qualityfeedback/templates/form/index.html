@@ -1,0 +1,19 @@
+{% extends 'form/base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1>Feedback Form</h1>
+    <form method="post" action>
+        {% csrf_token %}
+<!--        {% for question in questions %}-->
+<!--            {{ question.text }} <br>-->
+<!--        {% endfor %}-->
+<!--        {% for answer_form in answer_forms %}-->
+<!--            {{ answer_form.answer }} <br>-->
+<!--        {% endfor %}-->
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+{% endblock %}
