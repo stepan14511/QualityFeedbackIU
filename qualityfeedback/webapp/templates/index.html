@@ -14,17 +14,17 @@
         margin: auto;
         margin-top: 100px;
         width: 500px;
-        height: 600px;
+        height: 500px;
         background-color: #72bb53;
-        padding: 10px;
         text-align: center;
     }
     .center_h{
         margin: auto;
-        width: 50%;
+        width: 60%;
     }
     .input_field{
         height: 30px;
+        width: 40%;
         border: 2px solid black;
         border-radius: 5px;
     }
@@ -33,15 +33,86 @@
         margin-top: 30px;
         height: 40px;
     }
+    .tablinks{
+        width: 248px;
+        height: 60px;
+    }
+    .tab{
+        padding: 0px;
+        margin: 0px;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active {
+        background-color: #72bb53;
+        border: 0px;
+    }
+
+    .tabcontent {
+        display: none;
+    }
+
+    .tab button:focus {
+        outline: none;
+        box-shadow: none;
+    }
     </style>
 
     <div class="center_main">
-        <form>
-            <h1 class="center_h" style="margin-top: 100px;">Login</h1>
-            <input class="center_h input_field" type="email" required placeholder="Email" style="margin-top: 100px;"></input>
+        <!-- Tab links -->
+        <div class="tab">
+            <button class="tablinks" onclick="openCity(event, 'Login')" id="defaultOpen" ><h3>Login</h3></button>
+            <button class="tablinks" onclick="openCity(event, 'Registration')"><h3>Registration</h3></button>
+        </div>
+        
+        <!-- Tab content -->
+        <form id="Login" class="tabcontent">
+            <h2 class="center_h" style="margin-top: 80px;">Sign in to write a reflection</h2>
+            <input class="center_h input_field" type="email" required placeholder="Email" style="margin-top: 80px;"></input><br/>
             <input class="center_h input_field" type="password" required placeholder="Password" style="margin-top: 20px;"></input>
             <br/><input class="center_h input_field button_login" type="submit" value="Log in">
         </form>
-        <br/><a href="signup.html"> Sign up</a>
+
+        <form id="Registration" class="tabcontent">
+            <div style="margin-top: 30px; text-align: left; margin-left: 200px;">
+                <input type="radio" id="user_type1" name="user_type" value="Student" style="margin-top: 20px;">
+                <label for="user_type1" style="font-size: 20px;">Student</label><br/>
+                
+                <input type="radio" id="user_type2" name="user_type" value="TA" style="margin-top: 20px;">
+                <label for="user_type2" style="font-size: 20px;">Professor/TA</label><br/>
+                
+                <input type="radio" id="user_type3" name="user_type" value="DoE" style="margin-top: 20px;">
+                <label for="user_type3" style="font-size: 20px;">DoE</label>
+            </div>
+            <input class="center_h input_field" type="text" required placeholder="Name & Surname" style="margin-top: 43px;"></input><br/>
+            <input class="center_h input_field" type="email" required placeholder="Innopolis email" style="margin-top: 20px;"></input>
+            <br/><input class="center_h input_field button_login" type="submit" value="Sign up">
+            
+        </form>
     </div>
 </body>
+
+<script>
+    document.getElementById("defaultOpen").click();
+
+    function openCity(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+      
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+      
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+      
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+</script>
