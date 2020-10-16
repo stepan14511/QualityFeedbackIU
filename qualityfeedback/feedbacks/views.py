@@ -12,7 +12,6 @@ def index(request):
 		feedback_forms.append(form)
 	context = {
 		'title':'Quality Feedback Service',
-		'feedbacks': feedback_forms
+		'feedback': feedback_forms[1]
 	}
-	print(context)
 	return render(request, "form/index.html", context)
