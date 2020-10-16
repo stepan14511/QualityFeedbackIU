@@ -13,11 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 
 from . import views
 
+# A particular feedback form is going to appear if you
+# type url ending with /feedbacks/feedback_id=<feedback_id>/
+# where <feedback_id> is the id of a particular feedback.
+# You can check feedback id in Django Administration Page.
 urlpatterns = [
-	path('', views.index, name="main"),
+    url(r'^feedback_id=(?P<feedback_id>\d+)/$', views.index, name='index'),
 ]
