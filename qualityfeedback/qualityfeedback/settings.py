@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webapp.apps.WebappConfig',
 
-    'form',
+    'feedbacks',
     'home_page',
 ]
 

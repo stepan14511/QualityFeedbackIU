@@ -8,12 +8,7 @@
     <h1>Feedback Form</h1>
     <form method="post" action>
         {% csrf_token %}
-<!--        {% for question in questions %}-->
-<!--            {{ question.text }} <br>-->
-<!--        {% endfor %}-->
-<!--        {% for answer_form in answer_forms %}-->
-<!--            {{ answer_form.answer }} <br>-->
-<!--        {% endfor %}-->
+        {{ feedback.as_p }} <br>
         <button type="submit" class="btn btn-success">Submit</button>
     </form>
 {% endblock %}
