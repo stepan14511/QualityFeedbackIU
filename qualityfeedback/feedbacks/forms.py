@@ -1,5 +1,5 @@
 from django import forms
-
+from .RangeSlider import RangeSliderField
 # data should be an array with elements - arrays,
 # which contain field data to add to the feedback
 # Each element is an array with 3 or 4 elements -
@@ -30,3 +30,8 @@ class FeedbackForm(forms.Form):
 				for i in range(len(field_info[3])):
 					CHOICES.append((i, field_info[3][i]))
 				self.fields[fname] = forms.ChoiceField(label=flabel, choices=CHOICES, widget=forms.Select)
+			elif ftype == 'slider':
+				# in theory we also can provide minimum and maximum but it need to be parsed
+				# and right now by default it creates slider in range 1 - 10
+				# we also can provide step size but i don't know how it would affect slider's behavior
+				self.fields[fname] = RangeSliderField(label=flabel)
