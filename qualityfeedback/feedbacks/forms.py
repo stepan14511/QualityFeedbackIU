@@ -8,7 +8,11 @@ from django import forms
 # field types: text, textarea, choices_select
 #
 # example:
-# data=[["name", "What is your name?", "text"], ["who", "Who are you?", "choices_select", ["manager", "developer", "designer"]]]
+# data= [
+# 	["name", "What is your name?", "text"],
+# 	["who", "Who are you?", "single_choice", ["manager", "developer", "designer"]],
+# 	["what", "What classes do you like?", "multiple_choice", ["Lectures", "Tutorials", "Labs"]]
+# ]
 class FeedbackForm(forms.Form):
 	def __init__(self, *args, **kwargs):
 		data_fields = kwargs.pop('data', [])
@@ -25,8 +29,16 @@ class FeedbackForm(forms.Form):
 				self.fields[fname] = forms.CharField(label=flabel, widget=forms.TextInput)
 			elif ftype == 'textarea':
 				self.fields[fname] = forms.CharField(label=flabel, widget=forms.Textarea)
-			elif ftype == 'choices_select':
-				CHOICES = []
-				for i in range(len(field_info[3])):
-					CHOICES.append((i, field_info[3][i]))
+			elif ftype == 'single_choice':
+				CHOICES = self.get_choices(field_info)
 				self.fields[fname] = forms.ChoiceField(label=flabel, choices=CHOICES, widget=forms.Select)
+			elif ftype == 'multiple_choice':
+				CHOICES = self.get_choices(field_info)
+				self.fields[fname] = forms.MultipleChoiceField(label=flabel, widget=forms.CheckboxSelectMultiple,
+                                          choices=CHOICES)
+
+	def get_choices(self, field_info):
+		CHOICES = []
+		for i in range(len(field_info[3])):
+			CHOICES.append((i, field_info[3][i]))
+		return CHOICES
