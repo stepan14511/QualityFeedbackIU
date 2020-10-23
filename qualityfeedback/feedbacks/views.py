@@ -4,8 +4,9 @@ import json
 from .models import Feedback
 from .forms import FeedbackForm
 
-def index(request, feedback_id):
-	feedback = Feedback.objects.get(id=feedback_id)
+def index(request):
+	_id = request.GET['id']
+	feedback = Feedback.objects.get(id=_id)
 	feedback_forms = []
 	form = FeedbackForm(data=json.loads(feedback.data))
 	feedback_forms.append(form)
