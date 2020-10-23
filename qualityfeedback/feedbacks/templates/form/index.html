@@ -19,8 +19,8 @@
             <h1>Feedback on P&S lecture #11</h1>
             <form method="post" action>
                 {% csrf_token %}
-                {{ feedback.as_p }} <br>
-                <button type="submit" class="btn btn-success">Submit</button>
+                {{ feedback.as_p }}<br>
+                <button type="submit" class="btn btn-success">submit</button>
             </form>
         </div>
     </div>
@@ -66,10 +66,48 @@
         margin: auto;
         margin-top: 20px;
         width: 800px;
-        height: 500px;
     }
     .link_to_form{
         margin-top: 30px;
+    }
+    .btn-success{
+        background-color: #99f770;
+        border: black 1px solid;
+        border-radius: 5px;
+        height: 30px;
+        width: 100px;
+    }
+    input{
+        display: block;
+        white-space: pre;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+    }
+    .ftype_text{
+        width: 60%;
+    }
+    .ftype_textarea{
+        margin-top: 20px;
+    }
+    .ftype_choices_select{
+        display: block;
+        white-space: pre;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;}
+    label{
+        font-size: larger;
+        display: block;
+        white-space: pre;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+        width: 80%;
+        text-align: left;
+        border: black 1px solid;
+        border-radius: 3px;
+        padding: 5px;
     }
 </style>
 

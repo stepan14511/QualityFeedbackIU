@@ -22,11 +22,11 @@ class FeedbackForm(forms.Form):
 			ftype = field_info[2]
 			
 			if ftype == 'text':
-				self.fields[fname] = forms.CharField(label=flabel, widget=forms.TextInput)
+				self.fields[fname] = forms.CharField(label=flabel, widget=forms.TextInput(attrs={'class' : 'ftype_text'}))
 			elif ftype == 'textarea':
-				self.fields[fname] = forms.CharField(label=flabel, widget=forms.Textarea)
+				self.fields[fname] = forms.CharField(label=flabel, widget=forms.Textarea(attrs={'class' : 'ftype_textarea'}))
 			elif ftype == 'choices_select':
 				CHOICES = []
 				for i in range(len(field_info[3])):
 					CHOICES.append((i, field_info[3][i]))
-				self.fields[fname] = forms.ChoiceField(label=flabel, choices=CHOICES, widget=forms.Select)
+					self.fields[fname] = forms.ChoiceField(label=flabel, choices=CHOICES, widget=forms.Select(attrs={'class' : 'ftype_choices_select'}))
