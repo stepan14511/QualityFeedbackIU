@@ -19,7 +19,7 @@ from django.urls import path, include
 
 from . import views
 
-# A particular feedback form is going to appear if you
+# A particular feedback form_creation is going to appear if you
 # type url ending with /feedbacks/feedback_id=<feedback_id>/
 # where <feedback_id> is the id of a particular feedback.
 # You can check feedback id in Django Administration Page.
