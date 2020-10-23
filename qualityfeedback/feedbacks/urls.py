@@ -24,5 +24,6 @@ from . import views
 # where <feedback_id> is the id of a particular feedback.
 # You can check feedback id in Django Administration Page.
 urlpatterns = [
-    url(r'^feedback/$', views.index, name='index'),
+    url(r'^feedback/(?P<feedback_id>\d+)/$', views.index, name='index'),
+    url(r'^thanks/$', views.thanks, name='thanks'),
 ]
