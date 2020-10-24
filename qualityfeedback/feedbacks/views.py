@@ -26,4 +26,5 @@ def index(request, feedback_id):
 	return render(request, "form/index.html", context)
 
 def thanks(request):
-	return HttpResponse("Thanks for your feedback!")
+	#return HttpResponse("Thanks for your feedback!")
+	return render(request, 'form/done.html')
