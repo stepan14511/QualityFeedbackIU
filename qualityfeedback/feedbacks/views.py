@@ -20,6 +20,7 @@ def index(request, feedback_id):
 	form = FeedbackForm(data=json.loads(feedback.data))
 	context = {
 		'title':'Quality Feedback Service',
+		'name': feedback.name,
 		'feedback': form
 	}
 	return render(request, "form/index.html", context)

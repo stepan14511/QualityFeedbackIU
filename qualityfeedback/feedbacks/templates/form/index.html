@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Feedback Form</h1>
+    <h1>{{ name }}</h1>
     <form method="post" action>
         {% csrf_token %}
         {{ feedback.as_p }} <br>
