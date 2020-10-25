@@ -4,6 +4,7 @@ from webapp.models import User, Course, Group
 
 class Feedback(models.Model):
 	group_rel = models.ForeignKey(Group, on_delete=models.CASCADE)
+	name = models.CharField(default='', max_length=256)
 	data = models.TextField()
 
 class FeedbackAdmin(admin.ModelAdmin):

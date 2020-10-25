@@ -20,9 +20,10 @@ from django.urls import path, include
 from . import views
 
 # A particular feedback form is going to appear if you
-# type url ending with /feedbacks/feedback/?id=<feedback_id>
+# type url ending with /feedbacks/feedback/<feedback_id>
 # where <feedback_id> is the id of a particular feedback.
 # You can check feedback id in Django Administration Page.
+# Example: http://127.0.0.1:8000/feedbacks/feedback/1/
 urlpatterns = [
     url(r'^feedback/(?P<feedback_id>\d+)/$', views.index, name='index'),
     url(r'^thanks/$', views.thanks, name='thanks'),
