@@ -6,7 +6,6 @@
 
 {% block content %}
 <body>
-    <h1>{{ name }}</h1>
     <header style="margin-left: 5px; margin-right: 5px;">
         <div style="text-align: left; height: 0px;"><button class="menu_btn">Courses</button></div>
         <div style="text-align: right; height: 0px;"><button class="logout_btn">log out</button></div>
@@ -16,7 +15,7 @@
     </div>
     <div class = "main_div">
         <div style="border: 1px solid; height: 100%; padding: 20px; margin: auto; text-align: center;">
-            <h1>Feedback on P&S lecture #11</h1>
+            <h1>{{ name }}</h1>
             <form method="post" action>
                 {% csrf_token %}
                 {{ feedback.as_p }}<br>
