@@ -46,3 +46,13 @@ class FeedbackForm(forms.Form):
 		for i in range(len(field_info[3])):
 			CHOICES.append((i, field_info[3][i]))
 		return CHOICES
+
+
+
+		[
+			["name", "What is your name?", "text"],
+			["who", "Describe you below.", "textarea"],
+			["who_r_u", "Who are you?", "single_choice", ["manager", "developer", "designer"]],
+			["where_r_u", "Where are you from?", "multiple_choice", ["Russia", "Kazan", "Innop"]], 
+			["idk", "slider, wualya"]
+		]

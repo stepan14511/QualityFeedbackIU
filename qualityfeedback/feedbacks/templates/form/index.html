@@ -85,17 +85,23 @@
         margin-top: 10px;
     }
     .ftype_text{
-        width: 60%;
+        width: 50%;
+        margin-right: 39.8%;
     }
     .ftype_textarea{
         margin-top: 20px;
     }
-    .ftype_choices_select{
+    .ftype_single_choice{
         display: block;
         white-space: pre;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 10px;}
+        margin-top: 10px;
+    }
+    .ftype_multiple_choice{
+        display: inline;
+        font-size: small;
+    }
     label{
         font-size: larger;
         display: block;
@@ -108,6 +114,24 @@
         border: black 1px solid;
         border-radius: 3px;
         padding: 5px;
+    }
+    li{
+        list-style-type: none;
+        font-size: larger;
+        display: block;
+        white-space: pre;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -20px;
+        width: 80%;
+        text-align: left;
+        padding: 5px;
+    }
+    li label{
+        border: 0px black solid;
+        display: inline;
+        white-space: normal;
+        text-align: left;
     }
 </style>
 {% endblock %}
