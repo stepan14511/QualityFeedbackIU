@@ -25,11 +25,13 @@ class RangeSlider(forms.TextInput):
                 <span id=\"out-"""+self.elem_id+ \
                     """\" style="font-weight:bold;color:red">-1</span>
                 <script>
+                    
+                    
                     var slider = document.getElementById(\"id_"""+self.elem_id+"""\");
                     var output = document.getElementById(\"out-"""+self.elem_id+"""\");
                     output.innerHTML = slider.value;
-                    
-                    slider.ouinput = function(){
+
+                    slider.oninput = function(){
                         output.innerHTML = this.value;
                     }
                     
