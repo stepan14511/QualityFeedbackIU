@@ -9,10 +9,13 @@ from .RangeSlider import RangeSliderField
 #
 # example:
 # data= [
-# 	["name", "What is your name?", "text"],
-# 	["who", "Who are you?", "single_choice", ["manager", "developer", "designer"]],
-# 	["what", "What classes do you like?", "multiple_choice", ["Lectures", "Tutorials", "Labs"]]
+#	["name", "What is your name?", "text"],
+#	["who", "Describe you below.", "textarea"],
+#	["who_r_u", "Who are you?", "single_choice", ["manager", "developer", "designer"]],
+#	["where_r_u", "Where are you from?", "multiple_choice", ["Russia", "Kazan", "Innop"]], 
+#	["idk", "slider, wualya"]
 # ]
+
 class FeedbackForm(forms.Form):
 	def __init__(self, *args, **kwargs):
 		data_fields = kwargs.pop('data', [])
@@ -47,12 +50,3 @@ class FeedbackForm(forms.Form):
 			CHOICES.append((i, field_info[3][i]))
 		return CHOICES
 
-
-
-		[
-			["name", "What is your name?", "text"],
-			["who", "Describe you below.", "textarea"],
-			["who_r_u", "Who are you?", "single_choice", ["manager", "developer", "designer"]],
-			["where_r_u", "Where are you from?", "multiple_choice", ["Russia", "Kazan", "Innop"]], 
-			["idk", "slider, wualya"]
-		]
