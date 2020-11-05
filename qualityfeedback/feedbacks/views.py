@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 import json
 
 from .models import Feedback, Answer
@@ -14,7 +14,7 @@ def index(request, feedback_id):
 			data = []
 			for i in request.POST.keys():
 				if i != 'csrfmiddlewaretoken':
-					data.append([i, request.POST[i]])
+					data.append( [i, request.POST.getlist(i)] )
 			Answer.objects.create(feedback_rel=feedback, data=json.dumps(data))
 			return HttpResponseRedirect('/feedbacks/thanks/')
 	form = FeedbackForm(data=json.loads(feedback.data))
@@ -26,5 +26,4 @@ def index(request, feedback_id):
 	return render(request, "form/index.html", context)
 
 def thanks(request):
-	#return HttpResponse("Thanks for your feedback!")
 	return render(request, 'form/done.html')

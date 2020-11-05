@@ -35,12 +35,15 @@ class FeedbackForm(forms.Form):
 				self.fields[fname] = forms.CharField(label=flabel, widget=forms.Textarea(attrs={'class' : 'ftype_textarea'}))
 			elif ftype == 'single_choice':
 				CHOICES = self.get_choices(field_info)
-				self.fields[fname] = forms.ChoiceField(label=flabel, choices=CHOICES, widget=forms.Select(attrs={'class' : 'ftype_single_choice'}))
+				self.fields[fname] = forms.ChoiceField(label=flabel, choices=CHOICES, widget=forms.Select(attrs={'class':'ftype_single_choice'}))
 			elif ftype == 'multiple_choice':
 				CHOICES = self.get_choices(field_info)
-				self.fields[fname] = forms.MultipleChoiceField(label=flabel, widget=forms.CheckboxSelectMultiple(attrs={'class' : 'ftype_multiple_choice'}), choices=CHOICES)
+				self.fields[fname] = forms.MultipleChoiceField(label=flabel,widget=forms.CheckboxSelectMultiple(attrs={'class':'ftype_multiple_choice'}), choices=CHOICES)
 			elif ftype == 'slider':
-				self.fields[fname] = RangeSliderField(label=flabel, minimum=field_info[3][0], maximum=field_info[3][1], step=field_info[3][2])
+				min_value = field_info[3][0]
+				max_value = field_info[3][1]
+				step = field_info[3][2]
+				self.fields[fname] = RangeSliderField(label=flabel, minimum=min_value, maximum=max_value, step=step)
 
 	def get_choices(self, field_info):
 		CHOICES = []
