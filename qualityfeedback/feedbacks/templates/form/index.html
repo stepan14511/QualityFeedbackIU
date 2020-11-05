@@ -5,10 +5,132 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Feedback Form</h1>
-    <form method="post" action>
-        {% csrf_token %}
-        {{ feedback.as_p }} <br>
-        <button type="submit" class="btn btn-success">Submit</button>
-    </form>
+<body>
+    <header style="margin-left: 5px; margin-right: 5px;">
+        <div style="text-align: left; height: 0px;"><button class="menu_btn">Courses</button></div>
+        <div style="text-align: right; height: 0px;"><button class="logout_btn">log out</button></div>
+    </header>
+    <div class = "txt_under_header">
+        <h1>Write a feedback. Get results!</h1>
+    </div>
+    <div class = "main_div">
+        <div style="border: 1px solid; height: 100%; padding: 20px; margin: auto; text-align: center;">
+            <h1>{{ name }}</h1>
+            <form method="post" action>
+                {% csrf_token %}
+                {{ feedback.as_p }}<br>
+                <button type="submit" class="btn btn-success">submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+<style>
+    body{
+        margin: 2px;
+    }
+    header{
+        height: 34px;
+        text-align: center;
+    }
+    .logout_btn{
+        height: 30px;
+        width: 110px;
+        margin-top: 1px;
+        background-color: lightgrey;
+        border: black 1px solid;
+        border-radius: 5px;
+        text-align: center;
+    }
+    .menu_btn{
+        height: 30px;
+        width: 110px;
+        margin-top: 1px;
+        background-color: lightgrey;
+        border: black 1px solid;
+        border-radius: 5px;
+        text-align: center;
+    }
+    .txt_under_header{
+        background-color: #72bb53;
+        height: 200px;
+        border: black 1px solid;
+        text-align: center;
+        color: white;
+    }
+    .txt_under_header h1{
+        margin-top: 75px;
+    }
+    .main_div{
+        margin: auto;
+        margin-top: 20px;
+        width: 800px;
+    }
+    .link_to_form{
+        margin-top: 30px;
+    }
+    .btn-success{
+        background-color: #99f770;
+        border: black 1px solid;
+        border-radius: 5px;
+        height: 30px;
+        width: 100px;
+    }
+    input{
+        display: block;
+        white-space: pre;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+    }
+    .ftype_text{
+        width: 50%;
+        margin-right: 39.8%;
+    }
+    .ftype_textarea{
+        margin-top: 20px;
+    }
+    .ftype_single_choice{
+        display: block;
+        white-space: pre;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+    }
+    .ftype_multiple_choice{
+        display: inline;
+        font-size: small;
+    }
+    label{
+        font-size: larger;
+        display: block;
+        white-space: pre;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+        width: 80%;
+        text-align: left;
+        border: black 1px solid;
+        border-radius: 3px;
+        padding: 5px;
+    }
+    li{
+        list-style-type: none;
+        font-size: larger;
+        display: block;
+        white-space: pre;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -20px;
+        width: 80%;
+        text-align: left;
+        padding: 5px;
+    }
+    li label{
+        border: 0px black solid;
+        display: inline;
+        white-space: normal;
+        text-align: left;
+    }
+</style>
 {% endblock %}

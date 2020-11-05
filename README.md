@@ -11,6 +11,12 @@ Setup docker-compose, go to `./postgres` and run:
 
 ```sudo docker-compose up --build```
 
+#### Windows
+
+Go to https://www.enterprisedb.com/downloads/postgres-postgresql-downloads and download the latest version (13) for Windows. During the installation select all components, set the default password for a new superuser `postgres` (it could be any, but remember it), make sure that the port is `5432` and run the installation.
+
+After installation run pgAdmin, connect to PostgreSQL server using the password you have created earlier. Click `Object -> Create -> Login/Group Role`. On `General` enter the name, on `Definition` set the password and in `Priviliges` set `Can login?` to `Yes` (note: needed credentials you can find in `./postgres/docker-compose.yml` file). Save changes and create the database by the same way (on `General` tab set `Database` to `qfeedback` and `Owner` to `user`).
+
 ### Run the server
 
 #### Linux/MacOS
@@ -25,12 +31,6 @@ To configure needed tables and start the server go to `./qualityfeedback/` and r
 python3 ./manage.py migrate
 python3 ./manage.py runserver
 ```
-
-#### Windows
-
-Go to https://www.enterprisedb.com/downloads/postgres-postgresql-downloads and download the latest version (13) for Windows. During the installation select all components, set the default password for a new superuser `postgres` (it could be any, but remember it), make sure that the port is `5432` and run the installation.
-
-After installation run pgAdmin, connect to PostgreSQL server using the password you have created earlier. Click `Object -> Create -> Login/Group Role`. On `General` enter the name, on `Definition` set the password and in `Priviliges` set `Can login?` to `Yes` (note: needed credentials you can find in `./postgres/docker-compose.yml` file). Save changes and create the database by the same way (on `General` tab set `Database` to `qfeedback` and `Owner` to `user`).
 
 #### Windows
 
