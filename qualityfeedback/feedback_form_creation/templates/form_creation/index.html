@@ -1,4 +1,4 @@
-{% extends 'form/base.html' %}
+{% extends 'form_creation/base_form_creation.html' %}
 
 {% block title %}
     {{ title }}
@@ -6,4 +6,9 @@
 
 {% block content %}
     <h1>Create a New Feedback Form</h1>
+    <form method="post" action>
+        {% csrf_token %}
+        {{ form.as_p }} <br>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
 {% endblock %}

@@ -9,11 +9,11 @@ from .RangeSlider import RangeSliderField
 #
 # example:
 # data= [
-#	["name", "What is your name?", "text"],
-#	["who", "Describe you below.", "textarea"],
-#	["who_r_u", "Who are you?", "single_choice", ["manager", "developer", "designer"]],
-#	["where_r_u", "Where are you from?", "multiple_choice", ["Russia", "Kazan", "Innop"]], 
-#	["idk", "slider, wualya", "slider", [5, 8, 0.5]]
+#	["1", "What is your name?", "text"],
+#	["2", "Describe you below.", "textarea"],
+#	["3", "Who are you?", "single_choice", ["manager", "developer", "designer"]],
+#	["4", "Where are you from?", "multiple_choice", ["Russia", "Kazan", "Innop"]],
+#	["5", "slider, wualya", "slider", [5, 8, 0.5]]
 #   // [5, 8, 0.5] = [min, max, step]
 # ]
 
