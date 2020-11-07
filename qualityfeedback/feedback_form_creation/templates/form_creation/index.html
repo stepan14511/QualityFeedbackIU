@@ -6,9 +6,73 @@
 
 {% block content %}
     <h1>Create a New Feedback Form</h1>
-    <form method="post" action>
+    <form method="post" action id="form">
         {% csrf_token %}
         {{ form.as_p }} <br>
+        <label for="id_group_rel" id="new_question_label">New question:</label> <select name="new_question_type" id="new_question_type">
+            <option value="1">Text</option>
+            <option value="2">Textarea</option>
+            <option value="3">Single choice</option>
+            <option value="4">Multiple choice</option>
+            <option value="5">Slider</option>
+        </select>
+        <button type="button" class="btn btn-success" id="addQuestionBtn" onclick="createNewElement();">Add question</button><br/>
         <button type="submit" class="btn btn-success">Create</button>
+        <script type="text/JavaScript">
+            var last_used_id = 0;
+            var last_used_answer_id = [0];
+
+            function createNewElement() {
+                question_id = ++last_used_id;
+                last_used_answer_id.push(0);
+
+                var question_type = document.getElementById("new_question_type");
+
+                var txtNewInputBox = document.createElement('p');
+
+                txtNewInputBox.setAttribute("id", "question_"+question_id+"_p");
+            
+                txtNewInputBox.innerHTML = '<label for="question_'+last_used_id+'">'+last_used_id+'):</label> <input type="text" placeholder="How are you?" name="question_'+last_used_id+'_name" required id="question_'+last_used_id+'"></input>';
+                
+                if(question_type.value == 1){
+                    txtNewInputBox.innerHTML += '(type: text)<br/>';
+                }
+                if(question_type.value == 2){
+                    txtNewInputBox.innerHTML += '(type: textarea)<br/>';
+                }
+                if(question_type.value == 3){
+                    txtNewInputBox.innerHTML += '(type: single choice)<br/>';
+                    last_used_answer_id[question_id]++;
+                    txtNewInputBox.innerHTML += '<input type="text" placeholder="Answer '+last_used_answer_id[question_id]+'" name="question_'+last_used_id+'_answer_'+last_used_answer_id[question_id]+'" required id="question_'+last_used_id+'_answer_'+last_used_answer_id[question_id]+'"></input><br/>';
+                    txtNewInputBox.innerHTML += '<button type="button" id="addAnswerBtn_'+question_id+'" onclick="addAnswer('+question_id+');">Add answer</button><br/>'
+                }
+                if(question_type.value == 4){
+                    txtNewInputBox.innerHTML += '(type: multiple choice)<br/>';
+                    last_used_answer_id[question_id]++;
+                    txtNewInputBox.innerHTML += '<input type="text" placeholder="Answer '+last_used_answer_id[question_id]+'" name="question_'+last_used_id+'_answer_'+last_used_answer_id[question_id]+'" required id="question_'+last_used_id+'_answer_'+last_used_answer_id[question_id]+'"></input><br/>';
+                    txtNewInputBox.innerHTML += '<button type="button" id="addAnswerBtn_'+question_id+'" onclick="addAnswer('+question_id+');">Add answer</button><br/>'
+                }
+                if(question_type.value == 5){
+                    txtNewInputBox.innerHTML += '(type: slider)<br/>';
+                    txtNewInputBox.innerHTML += '<label for="question_'+last_used_id+'_begin">Start:</label> <input type="number" placeholder="1" name="question_'+last_used_id+'_begin" required id="question_'+last_used_id+'_begin"></input>';
+                    txtNewInputBox.innerHTML += ' <label for="question_'+last_used_id+'_begin">End:</label> <input type="number" placeholder="10" name="question_'+last_used_id+'_begin" required id="question_'+last_used_id+'_begin"></input>';
+                    txtNewInputBox.innerHTML += ' <label for="question_'+last_used_id+'_begin">Step:</label> <input type="number" placeholder="1" name="question_'+last_used_id+'_begin" required id="question_'+last_used_id+'_begin"></input><br/>';
+                    /* TODO slider */
+                }
+
+                document.getElementById("form").insertBefore(txtNewInputBox, document.getElementById("new_question_label"));
+            }
+
+            function addAnswer(question_id){
+                last_used_answer_id[question_id]++;
+                var div = document.createElement('div');
+                div.innerHTML = '<input type="text" placeholder="Answer '+last_used_answer_id[question_id]+'" name="question_'+last_used_id+'_answer_'+last_used_answer_id[question_id]+'" required id="question_'+last_used_id+'_answer_'+last_used_answer_id[question_id]+'"></input><br/>';
+                document.getElementById("question_"+question_id+"_p").insertBefore(div.firstChild, document.getElementById("addAnswerBtn_"+question_id));
+
+                div = document.createElement('div');
+                div.innerHTML = "<br/>";
+                document.getElementById("question_"+question_id+"_p").insertBefore(div.firstChild, document.getElementById("addAnswerBtn_"+question_id));
+            }
+            </script>
     </form>
 {% endblock %}
