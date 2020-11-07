@@ -10,18 +10,26 @@ def index(request):
 	if request.method == "POST":
 		form = CreateFeedbackForm(request.POST)
 		if form.is_valid():
-			data = []
-			for i in request.POST.keys():
-				if i != 'csrfmiddlewaretoken':
-					data.append(request.POST.get(i))
-			title = data[0]
-			group = Group.objects.get(group_name=data[1])
+			title = request.POST.get("name")
+			group = Group.objects.get(group_name=request.POST.get("group_rel"))
+			questions = []
+			for i in range(1, int(request.POST.get("number_of_questions")) + 1):
+				q_type = request.POST.get("question_"+str(i)+"_type")
+				question = [str(i), request.POST.get("question_"+str(i)+"_name"), q_type]
 
-			
-			questions = data[2]
+				if q_type in ["single_choice", "multiple_choice"]:
+					answers = []
+					for j in range(1, int(request.POST.get("question_"+str(i)+"_num_answers")) + 1):
+						answers.append(request.POST.get("question_"+str(i)+"_answer_"+str(j)))
+					question.append(answers)
 
+				if q_type == "slider":
+					ranges = [int(request.POST.get("question_"+str(i)+"_begin")), int(request.POST.get("question_"+str(i)+"_end")), int(request.POST.get("question_"+str(i)+"_step"))]
+					question.append(ranges)
 
-			Feedback.objects.create(name=title, group_rel=group, data=questions)
+				questions.append(question)
+
+			Feedback.objects.create(name=title, group_rel=group, data=str(questions).replace("\'", "\""))
 
 
 			return HttpResponseRedirect('/create/thanks/')
