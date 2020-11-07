@@ -29,10 +29,10 @@ def index(request):
 
 				questions.append(question)
 
-			Feedback.objects.create(name=title, group_rel=group, data=str(questions).replace("\'", "\""))
+			feedback = Feedback.objects.create(name=title, group_rel=group, data=str(questions).replace("\'", "\""))
 
 
-			return HttpResponseRedirect('/create/thanks/')
+			return HttpResponseRedirect('/create/thanks/?id='+str(feedback.id))
 
 	context = {
 		'title': 'Create a Feedback Form',
@@ -41,7 +41,8 @@ def index(request):
 	return render(request, "form_creation/index.html", context)
 
 def thanks(request):
-	link = "http://127.0.0.1:8000/feedbacks/feedback/" + str(Feedback.objects.all().count())
+	f_id = request.GET['id']
+	link = "http://127.0.0.1:8000/feedbacks/feedback/" + str(f_id)
 	context = {
 		'link' : link
 	}
