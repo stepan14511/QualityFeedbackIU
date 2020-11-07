@@ -16,8 +16,14 @@ def index(request):
 					data.append(request.POST.get(i))
 			title = data[0]
 			group = Group.objects.get(group_name=data[1])
+
+			
 			questions = data[2]
+
+
 			Feedback.objects.create(name=title, group_rel=group, data=questions)
+
+
 			return HttpResponseRedirect('/create/thanks/')
 
 	context = {
