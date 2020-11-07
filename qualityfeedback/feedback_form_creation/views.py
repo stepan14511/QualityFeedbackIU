@@ -27,4 +27,8 @@ def index(request):
 	return render(request, "form_creation/index.html", context)
 
 def thanks(request):
-	return render(request, 'form_creation/done_form_creation.html')
+	link = "http://127.0.0.1:8000/feedbacks/feedback/" + str(Feedback.objects.all().count())
+	context = {
+		'link' : link
+	}
+	return render(request, 'form_creation/done_form_creation.html', context)
