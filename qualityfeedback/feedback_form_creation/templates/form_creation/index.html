@@ -37,15 +37,15 @@
                 txtNewInputBox.innerHTML = '<label for="question_'+question_id+'">'+question_id+'):</label> <input type="text" placeholder="How are you?" name="question_'+question_id+'_name" required id="question_'+question_id+'"></input>';
                 
                 if(question_type.value == 1){
-                    txtNewInputBox.innerHTML += '(type: text)<br/>';
+                    txtNewInputBox.innerHTML += '(type: text)<button type="button" class="button_delete" onclick="deleteQuestion('+question_id+');">x</button><br/>';
                     txtNewInputBox.innerHTML += '<input type="hidden" id="question_'+question_id+'_type" name="question_'+question_id+'_type" value="text">';
                 }
                 if(question_type.value == 2){
-                    txtNewInputBox.innerHTML += '(type: textarea)<br/>';
+                    txtNewInputBox.innerHTML += '(type: textarea)<button type="button" class="button_delete" onclick="deleteQuestion('+question_id+');">x</button><br/>';
                     txtNewInputBox.innerHTML += '<input type="hidden" id="question_'+question_id+'_type" name="question_'+question_id+'_type" value="textarea">';
                 }
                 if(question_type.value == 3){
-                    txtNewInputBox.innerHTML += '(type: single choice)<br/>';
+                    txtNewInputBox.innerHTML += '(type: single choice)<button type="button" class="button_delete" onclick="deleteQuestion('+question_id+');">x</button><br/>';
                     txtNewInputBox.innerHTML += '<input type="hidden" id="question_'+question_id+'_type" name="question_'+question_id+'_type" value="single_choice">';
                     txtNewInputBox.innerHTML += '<input type="hidden" id="question_'+question_id+'_num_answers" name="question_'+question_id+'_num_answers" value="1">';
                     last_used_answer_id[question_id]++;
@@ -53,7 +53,7 @@
                     txtNewInputBox.innerHTML += '<button type="button" id="addAnswerBtn_'+question_id+'" onclick="addAnswer('+question_id+');">Add answer</button><br/>'
                 }
                 if(question_type.value == 4){
-                    txtNewInputBox.innerHTML += '(type: multiple choice)<br/>';
+                    txtNewInputBox.innerHTML += '(type: multiple choice)<button type="button" class="button_delete" onclick="deleteQuestion('+question_id+');">x</button><br/>';
                     txtNewInputBox.innerHTML += '<input type="hidden" id="question_'+question_id+'_type" name="question_'+question_id+'_type" value="multiple_choice">';
                     txtNewInputBox.innerHTML += '<input type="hidden" id="question_'+question_id+'_num_answers" name="question_'+question_id+'_num_answers" value="1">';
                     last_used_answer_id[question_id]++;
@@ -61,7 +61,7 @@
                     txtNewInputBox.innerHTML += '<button type="button" id="addAnswerBtn_'+question_id+'" onclick="addAnswer('+question_id+');">Add answer</button><br/>'
                 }
                 if(question_type.value == 5){
-                    txtNewInputBox.innerHTML += '(type: slider)<br/>';
+                    txtNewInputBox.innerHTML += '(type: slider)<button type="button" class="button_delete" onclick="deleteQuestion('+question_id+');">x</button><br/>';
                     txtNewInputBox.innerHTML += '<input type="hidden" id="question_'+question_id+'_type" name="question_'+question_id+'_type" value="slider">';
                     txtNewInputBox.innerHTML += '<label for="question_'+question_id+'_begin">Start:</label> <input type="number" placeholder="1" name="question_'+question_id+'_begin" required id="question_'+question_id+'_begin"></input>';
                     txtNewInputBox.innerHTML += ' <label for="question_'+question_id+'_end">End:</label> <input type="number" placeholder="10" name="question_'+question_id+'_end" required id="question_'+question_id+'_end"></input>';
@@ -83,6 +83,71 @@
                 div.innerHTML = "<br/>";
                 document.getElementById("question_"+question_id+"_p").insertBefore(div.firstChild, document.getElementById("addAnswerBtn_"+question_id));
             }
+
+            function deleteQuestion(question_id){
+                last_used_answer_id.splice(question_id, 1);
+                document.getElementById("question_"+question_id+"_p").remove();
+                for(var old_id = question_id + 1; old_id <= last_used_id; old_id++){
+                    // For each element decrease id.
+                    var new_id = old_id - 1;
+                    var p = document.getElementById("question_"+old_id+"_p"); // Getting "p"
+                    p.setAttribute("id", "question_"+new_id+"_p");
+
+                    p.childNodes[0].setAttribute("for", "question_"+new_id); // Label attrs
+                    p.childNodes[0].innerHTML = ""+new_id+"):"; // Label text
+
+                    // Input with question name attrs
+                    p.childNodes[2].name = "question_"+new_id+"_name";
+                    p.childNodes[2].id = "question_"+new_id;
+
+                    // Button delete
+                    p.childNodes[4].setAttribute("onclick", "deleteQuestion("+new_id+");");
+
+                    // Get type of question
+                    document.getElementById("question_"+old_id+"_type").setAttribute("id", "question_"+new_id+"_type");
+                    document.getElementById("question_"+new_id+"_type").setAttribute("name", "question_"+new_id+"_type");
+                    var q_type = document.getElementById("question_"+new_id+"_type").value;
+                    if((q_type == "text") || (q_type == "textarea")){
+                        continue;
+                    }
+                    if((q_type == "multiple_choice") || (q_type == "single_choice")){
+                        document.getElementById("question_"+old_id+"_num_answers").setAttribute("id", "question_"+new_id+"_num_answers");
+                        document.getElementById("question_"+new_id+"_num_answers").setAttribute("name", "question_"+new_id+"_num_answers");
+
+                        var num_answers = parseInt(document.getElementById("question_"+new_id+"_num_answers").value);
+                        for(var ans_id = 1; ans_id <= num_answers; ans_id++){
+                            document.getElementById("question_"+old_id+"_answer_"+ans_id).setAttribute("id", "question_"+new_id+"_answer_"+ans_id);
+                            document.getElementById("question_"+new_id+"_answer_"+ans_id).setAttribute("name", "question_"+new_id+"_answer_"+ans_id);
+                        }
+
+                        document.getElementById("addAnswerBtn_"+old_id).setAttribute("id", "addAnswerBtn_"+new_id);
+                        document.getElementById("addAnswerBtn_"+new_id).setAttribute("onclick", "addAnswer("+new_id+")");
+                    }
+                    if(q_type == "slider"){
+                        p.childNodes[7].setAttribute("for", "question_"+new_id+"_begin"); // Label attrs
+                        p.childNodes[11].setAttribute("for", "question_"+new_id+"_end"); // Label attrs
+                        p.childNodes[15].setAttribute("for", "question_"+new_id+"_step"); // Label attrs
+
+                        document.getElementById("question_"+old_id+"_begin").setAttribute("id", "question_"+new_id+"_begin");
+                        document.getElementById("question_"+new_id+"_begin").setAttribute("name", "question_"+new_id+"_begin");
+                        document.getElementById("question_"+old_id+"_end").setAttribute("id", "question_"+new_id+"_end");
+                        document.getElementById("question_"+new_id+"_end").setAttribute("name", "question_"+new_id+"_end");
+                        document.getElementById("question_"+old_id+"_step").setAttribute("id", "question_"+new_id+"_step");
+                        document.getElementById("question_"+new_id+"_step").setAttribute("name", "question_"+new_id+"_step");
+                    }
+                }
+                last_used_id--;
+                document.getElementById("number_of_questions").value = last_used_id;
+            }
             </script>
     </form>
+    <style>
+        .button_delete{
+            background-color: red;
+            border-radius: 50%;
+            text-align: center;
+            width: 25px;
+            height: 25px;
+        }
+    </style>
 {% endblock %}
