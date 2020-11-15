@@ -8,7 +8,7 @@ from django.contrib.auth.base_user import BaseUserManager
 
 class UserManager(BaseUserManager):
 	use_in_migrations = True
-	def _create_user(self, email, username, first_name, last_name, password, role, **extra_fields):
+	def _create_user(self, email, username, first_name, last_name, password, role):
 		"""
 		Create and save a user with the given username, email,
 		full_name, and password.
@@ -25,31 +25,28 @@ class UserManager(BaseUserManager):
 		username = self.model.normalize_username(username)
 		user = self.model(
 			email=email, username=username, first_name=first_name, last_name=last_name, role=role
-			**extra_fields
 		)
 		user.set_password(password)
+		return user
+	def create_user(self, email, username, first_name, last_name, password=None, role="student"):
+		user = self._create_user(email, username, first_name, last_name, password, role)
+		user.is_admin = False
+		user.is_staff = False
+		user.is_superuser = False
 		user.save(using=self._db)
 		return user
-	def create_user(self, email, username, first_name, last_name, password=None, role="student", **extra_fields):
-		extra_fields.setdefault('is_staff', False)
-		extra_fields.setdefault('is_superuser', False)
-		return self._create_user(
-			email, username, first_name, last_name, password, role, **extra_fields
-		)
-	def create_superuser(self, email, username, first_name, last_name, password, role="admin", **extra_fields):
-		extra_fields.setdefault('is_staff', True)
-		extra_fields.setdefault('is_superuser', True)
-		if extra_fields.get('is_staff') is not True:
-			raise ValueError('Superuser must have is_staff=True.')
-		if extra_fields.get('is_superuser') is not True:
-			raise ValueError('Superuser must have is_superuser=True.')
-		return self._create_user(
-			email, username, first_name, last_name, password, role="admin", **extra_fields
-		)
+	def create_superuser(self, email, username, first_name, last_name, password, role="admin"):
+		user = self._create_user(email, username, first_name, last_name, password, role)
+		user.is_admin = True
+		user.is_staff = True
+		user.is_superuser = True
+		user.save(using=self._db)
+		return user
 
 
 class User(AbstractBaseUser, PermissionsMixin):
 	ROLES = (
+		('admin', 'admin of the service'),
 		('student', 'student of a Uni'),
 		('professor', 'professor of a Uni'),
 	)
@@ -62,11 +59,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 	email = models.EmailField(unique=True)
 	first_name = models.CharField(max_length=255)
 	last_name = models.CharField(max_length=255)
+
+	is_admin = models.BooleanField(default=False)
 	is_active = models.BooleanField(default=True)
 	is_staff = models.BooleanField(default=False)
 
 	USERNAME_FIELD = 'email'
-	REQUIRED_FIELDS = ['username', 'full_name']
+	REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 	role = models.CharField(max_length=20, choices=ROLES, blank=True)
 
 	objects = UserManager()
