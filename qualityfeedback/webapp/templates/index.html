@@ -56,6 +56,17 @@
         outline: none;
         box-shadow: none;
     }
+
+    .dropdown_input{
+        height: 35px;
+        width: 41.7%;
+        margin-top: 20px;
+        margin-bottom: 0px;
+    }
+
+    .secondPage{
+        display: none;
+    }
     </style>
 
     <div class="center_main">
@@ -74,20 +85,52 @@
         </form>
 
         <form id="Registration" class="tabcontent">
-            <div style="margin-top: 30px; text-align: left; margin-left: 200px;">
-                <input type="radio" id="user_type1" name="user_type" value="Student" style="margin-top: 20px;">
-                <label for="user_type1" style="font-size: 20px;">Student</label><br/>
-                
-                <input type="radio" id="user_type2" name="user_type" value="TA" style="margin-top: 20px;">
-                <label for="user_type2" style="font-size: 20px;">Professor/TA</label><br/>
-                
-                <input type="radio" id="user_type3" name="user_type" value="DoE" style="margin-top: 20px;">
-                <label for="user_type3" style="font-size: 20px;">DoE</label>
+            <h3 class="secondPage secondPageStudent secondPageProf" style="margin-bottom: -10px;">Student:</h3>
+            <div class="firstPage">
+                <div style="margin-top: 30px; text-align: left; margin-left: 200px;">
+                    <input type="radio" id="user_type1" name="user_type" value="Student" style="margin-top: 20px;" checked>
+                    <label for="user_type1" style="font-size: 20px;">Student</label><br/>
+                    
+                    <input type="radio" id="user_type2" name="user_type" value="TA" style="margin-top: 20px;">
+                    <label for="user_type2" style="font-size: 20px;">Professor/TA</label><br/>
+                </div>
             </div>
+
             <input class="center_h input_field" type="text" required placeholder="Name & Surname" style="margin-top: 43px;"></input><br/>
-            <input class="center_h input_field" type="email" required placeholder="Innopolis email" style="margin-top: 20px;"></input>
-            <br/><input class="center_h input_field button_login" type="submit" value="Sign up">
-            
+            <input class="center_h input_field" type="email" required placeholder="Innopolis email" style="margin-top: 20px;"></input><br/>
+            <button formnovalidate type="button" class="center_h input_field button_login firstPage" onclick="openSecondPage()">Sign up</button>
+
+            <div class="secondPage secondPageStudent">
+                <select name="degree" class="dropdown_input" required>
+                    <option value="" disabled selected hidden>Select your degree</option>
+                    <option value="0">BS-1st year</option>
+                    <option value="1">BS-2st year</option>
+                    <option value="2">BS-3st year</option>
+                    <option value="3">BS-4st year</option>
+                    <option value="4">MS-1st year</option>
+                    <option value="5">MS-2st year</option>
+                </select><br/>
+                <select name="group_num" class="dropdown_input" required>
+                    <option value="" disabled selected hidden>Group Number</option>
+                    <option value="1">Group: 1</option>
+                    <option value="2">Group: 2</option>
+                    <option value="3">Group: 3</option>
+                    <option value="4">Group: 4</option>
+                    <option value="5">Group: 5</option>
+                    <option value="6">Group: 6</option>
+                </select><br/>
+                <input class="center_h input_field" type="password" required placeholder="Password" style="margin-top: 20px;"></input><br/>
+                <input class="center_h input_field button_login" type="submit" value="Sign up">
+            </div>
+            <div class="secondPage secondPageProf">
+                <select name="degree" class="dropdown_input" required>
+                    <option value="" disabled selected hidden>I am</option>
+                    <option value="0">Professor</option>
+                    <option value="1">TA</option>
+                </select><br/>
+                <input class="center_h input_field" type="password" required placeholder="Password" style="margin-top: 20px;"></input><br/>
+                <input class="center_h input_field button_login" type="submit" value="Sign up">
+            </div>
         </form>
     </div>
 </body>
@@ -115,4 +158,24 @@
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
       }
+
+    function openSecondPage(){
+        var firstPage = document.getElementsByClassName("firstPage");
+        for (var i = 0; i < firstPage.length; i++) {
+            firstPage[i].style.display = "none";
+        }
+
+        var secondPage;
+        if(document.getElementById("user_type1").checked){
+            secondPage = document.getElementsByClassName("secondPageStudent")
+            secondPage[0].innerHTML="Student:";
+        }
+        if(document.getElementById("user_type2").checked){
+            secondPage = document.getElementsByClassName("secondPageProf")
+            secondPage[0].innerHTML="Professor:";
+        }
+        for (var i = 0; i < secondPage.length; i++) {
+            secondPage[i].style.display = "block";
+        }
+    }
 </script>
