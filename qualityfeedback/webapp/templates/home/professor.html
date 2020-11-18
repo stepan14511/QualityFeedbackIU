@@ -6,8 +6,10 @@
 
 {% block content %}
     <h1>Main Page For Professor</h1>
-    {% for course_name in courses_names %}
-        {{ course_name }}
-        <br>
+    {% for course in courses %}
+    <li>{{ course.course_name }}</li>
+        {% for group in course.groups.all %}
+            {{ group.group_name }}
+        {% endfor %}
     {% endfor %}
 {% endblock %}
