@@ -6,6 +6,7 @@
 
 {% block content %}
     <h1>Main Page For Professor</h1>
+    <a class="btn btn-primary" href="/create">Create</a>
     {% for course in courses %}
     <li>{{ course.course_name }}</li>
         {% for group in course.groups.all %}
