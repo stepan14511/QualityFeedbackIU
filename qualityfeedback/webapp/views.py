@@ -27,12 +27,20 @@ def login(request):
 
 def home(request):
 	user = auth.get_user(request)
-
 	if user.is_authenticated:
 		if user.role == 'professor':
+			professors_courses = get_professors_courses(user)
 
-			return render(request, 'home/professor.html', {'title': "Main Page"})
+			
+			return render(request, 'home/professor.html', {'courses_names': professors_courses})
 		else:
 			return HttpResponse("Hello, " + request.user.username)
 	else:
 		return HttpResponseRedirect('/')
+
+def get_professors_courses(professor):
+	professors_courses = []
+	for course in Course.objects.all():
+		if course.professor == professor:
+			professors_courses.append(course.course_name)
+	return professors_courses

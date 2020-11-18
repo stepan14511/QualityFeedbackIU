@@ -6,4 +6,8 @@
 
 {% block content %}
     <h1>Main Page For Professor</h1>
+    {% for course_name in courses_names %}
+        {{ course_name }}
+        <br>
+    {% endfor %}
 {% endblock %}
