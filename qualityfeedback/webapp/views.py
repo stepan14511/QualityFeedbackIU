@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
 
+from .models import Course
+
 def index(request):
 	login_form = AuthenticationForm()
 	login_form.fields['username'].widget.attrs['class'] = 'center_h input_field'
@@ -24,7 +26,13 @@ def login(request):
 		return HttpResponseRedirect('/')
 
 def home(request):
-	if auth.get_user(request).is_authenticated:
-		return HttpResponse("Hello, " + request.user.username)
+	user = auth.get_user(request)
+
+	if user.is_authenticated:
+		if user.role == 'professor':
+
+			return render(request, 'home/professor.html', {'title': "Main Page"})
+		else:
+			return HttpResponse("Hello, " + request.user.username)
 	else:
 		return HttpResponseRedirect('/')
