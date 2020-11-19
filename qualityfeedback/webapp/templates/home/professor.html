@@ -18,10 +18,11 @@
     {% for course in courses %}
     <li>{{ course.course_name }}</li>
         {% for group in course.groups.all %}
-            {{ group.group_name }}
-            {% for feedbackforms_of_group in feedbackforms_by_group %}
-                {% if feedbackforms_of_group == group %}
-                    Feedback
+            {{ group.group_name }}<br>
+            {% for feedbackform in feedbackforms_pool %}
+                {% if feedbackform.group_rel == group %}
+                    <a href="">{{ feedbackform.name }}</a>
+                    <br>
                 {% endif %}
             {% endfor %}
         {% endfor %}
