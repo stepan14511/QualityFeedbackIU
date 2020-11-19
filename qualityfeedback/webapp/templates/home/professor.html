@@ -7,10 +7,23 @@
 {% block content %}
     <h1>Main Page For Professor</h1>
     <a class="btn btn-primary" href="/create">Create</a>
+    <br><br>
+
+    {% for feedbackform in feedbackforms_pool %}
+        <a href="">{{ feedbackform.name }}</a>
+        <br>
+    {% endfor %}
+    <br>
+
     {% for course in courses %}
     <li>{{ course.course_name }}</li>
         {% for group in course.groups.all %}
             {{ group.group_name }}
+            {% for feedbackforms_of_group in feedbackforms_by_group %}
+                {% if feedbackforms_of_group == group %}
+                    Feedback
+                {% endif %}
+            {% endfor %}
         {% endfor %}
     {% endfor %}
 {% endblock %}
