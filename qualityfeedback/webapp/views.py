@@ -7,8 +7,10 @@ def index(request):
 	login_form = AuthenticationForm()
 	login_form.fields['username'].widget.attrs['class'] = 'center_h input_field'
 	login_form.fields['username'].widget.attrs['style'] = 'margin-top: 20px;'
+	login_form.fields['username'].widget.attrs['placeholder'] = 'Email'
 	login_form.fields['password'].widget.attrs['class'] = 'center_h input_field'
 	login_form.fields['password'].widget.attrs['style'] = 'margin-top: 5px;'
+	login_form.fields['password'].widget.attrs['placeholder'] = 'Password'
 	return render(request, 'index.html', {'login_form':login_form})
 
 def login(request):
