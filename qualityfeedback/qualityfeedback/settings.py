@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 
     'feedbacks',
     'home_page',
-    'feedback_form_creation',
+#    'feedback_form_creation',
 ]
 
 MIDDLEWARE = [
@@ -111,6 +111,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+	'django.contrib.auth.backends.RemoteUserBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+AUTH_USER_MODEL = 'webapp.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

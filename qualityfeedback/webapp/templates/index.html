@@ -32,6 +32,7 @@
         width: 20%;
         margin-top: 30px;
         height: 40px;
+
     }
     .tablinks{
         width: 248px;
@@ -77,10 +78,10 @@
         </div>
         
         <!-- Tab content -->
-        <form id="Login" class="tabcontent">
-            <h2 class="center_h" style="margin-top: 80px;">Sign in to write a reflection</h2>
-            <input class="center_h input_field" type="email" required placeholder="Email" style="margin-top: 80px;"></input><br/>
-            <input class="center_h input_field" type="password" required placeholder="Password" style="margin-top: 20px;"></input>
+        <form id="Login" class="tabcontent" method="POST" action="/login">
+            <h2 class="center_h" style="margin-top: 50px;">Sign in to write a reflection</h2>
+			{% csrf_token %}
+			{{ login_form.as_p }}
             <br/><input class="center_h input_field button_login" type="submit" value="Log in">
         </form>
 
@@ -158,7 +159,6 @@
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
       }
-
     function openSecondPage(){
         var firstPage = document.getElementsByClassName("firstPage");
         for (var i = 0; i < firstPage.length; i++) {
