@@ -12,9 +12,14 @@ def index(request, feedback_id):
 	if user.is_authenticated:
 		if user.role == 'professor':
 			feedback = Feedback.objects.get(id=feedback_id)
+			answers = []
+			for answer in Answer.objects.all():
+				if answer.feedback_rel == feedback:
+					answers.append(json.loads(answer.data))
 			context = {
 				'feedback_name' : feedback.name,
-				'feedback_items' : json.loads(feedback.data)
+				'feedback_questions' : json.loads(feedback.data),
+				'answers' : answers
 			}
 			return render(request, "feedback_data/feedback_data.html", context)
 		else:

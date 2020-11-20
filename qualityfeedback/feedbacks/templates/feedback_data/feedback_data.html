@@ -5,8 +5,18 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Feedback Data For {{ feedback_name }}</h1>
-    {% for item in feedback_items %}
-        <li>{{ item.1 }}</li>
+    <h1>Feedback Data For <p style="color:Gray">{{ feedback_name }}</p></h1>
+    {% for question in feedback_questions %}
+        <li>{{ question.1 }}</li>
+        {% for answer in answers %}
+            {% for answer_to_question in answer %}
+                {% if question.0 == answer_to_question.0 %}
+                    {% for item in answer_to_question.1 %}
+                        {{ item }}
+                    {% endfor %}
+                    <br>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
     {% endfor %}
 {% endblock %}
