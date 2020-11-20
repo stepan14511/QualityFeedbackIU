@@ -10,7 +10,8 @@
     <br><br>
 
     {% for feedbackform in feedbackforms_pool %}
-        <a href="">{{ feedbackform.name }}</a>
+        <a href="/feedbacks/feedback/{{ feedbackform.id }}/">
+            {{ feedbackform.name }}</a>
         <br>
     {% endfor %}
     <br>
@@ -21,7 +22,8 @@
             {{ group.group_name }}<br>
             {% for feedbackform in feedbackforms_pool %}
                 {% if feedbackform.group_rel == group %}
-                    <a href="">{{ feedbackform.name }}</a>
+                    <a href="/feedbacks/feedback/{{ feedbackform.id }}/">
+                        {{ feedbackform.name }}</a>
                     <br>
                 {% endif %}
             {% endfor %}

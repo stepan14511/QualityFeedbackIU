@@ -1,0 +1,12 @@
+{% extends 'feedback_data/feedback_data_base.html' %}
+
+{% block title %}
+    {{ feedback_name }}
+{% endblock %}
+
+{% block content %}
+    <h1>Feedback Data For {{ feedback_name }}</h1>
+    {% for item in feedback_items %}
+        <li>{{ item.1 }}</li>
+    {% endfor %}
+{% endblock %}
