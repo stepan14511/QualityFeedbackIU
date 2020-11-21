@@ -28,6 +28,7 @@ class UserManager(BaseUserManager):
 		)
 		user.set_password(password)
 		return user
+
 	def create_user(self, email, username, first_name, last_name, password=None, role="student"):
 		user = self._create_user(email, username, first_name, last_name, password, role)
 		user.is_admin = False
@@ -35,6 +36,7 @@ class UserManager(BaseUserManager):
 		user.is_superuser = False
 		user.save(using=self._db)
 		return user
+		
 	def create_superuser(self, email, username, first_name, last_name, password, role="admin"):
 		user = self._create_user(email, username, first_name, last_name, password, role)
 		user.is_admin = True
