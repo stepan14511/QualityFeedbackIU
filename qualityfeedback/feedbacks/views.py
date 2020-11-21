@@ -74,4 +74,8 @@ def compose_feedback_data(feedback_questions, raw_answers):
 	return answers
 
 def thanks(request):
-	return render(request, 'form/done.html')
+	user = auth.get_user(request)
+	if user.is_authenticated:
+		return render(request, 'form/done.html')
+	else:
+		return HttpResponseRedirect('/')
