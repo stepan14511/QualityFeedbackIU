@@ -30,6 +30,9 @@ def index(request):
 	registration_form.fields['password1'].widget.attrs['class'] = 'center_h input_field'
 	registration_form.fields['password1'].widget.attrs['placeholder'] = 'Password'
 	registration_form.fields['password1'].widget.attrs['required'] = ''
+	registration_form.fields['password2'].widget.attrs['class'] = 'center_h input_field'
+	registration_form.fields['password2'].widget.attrs['placeholder'] = 'Password again'
+	registration_form.fields['password2'].widget.attrs['required'] = ''
 
 	return render(request, 'index.html', {'login_form':login_form, 'registration_form':registration_form})
 
@@ -49,14 +52,8 @@ def registration(request):
 	if request.method == "POST":
 		registration_form = RegistrationForm(request.POST)
 		if registration_form.is_valid():
-			registration_form.fields['username'] = registration_form.cleaned_data.get('email').split("@")[0]
-			registration_form.cleaned_data['username'] = registration_form.cleaned_data.get('email').split("@")[0]
-			print(registration_form.cleaned_data)
-			registration_form.save()
-			#username = registration_form.cleaned_data.get('username')
-			#raw_password = registration_form.cleaned_data.get('password1')
-			#user = authenticate(username=username, password=raw_password)
-			#login(request, user)
+			user = registration_form.save()
+			auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 			return HttpResponseRedirect('/home')
 		else:
 			return HttpResponseRedirect('/')
