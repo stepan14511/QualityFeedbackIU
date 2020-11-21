@@ -37,6 +37,11 @@ def home(request):
                 'feedbackforms_by_group' : get_professors_feedbackforms_by_group(user)
             }
             return render(request, 'home/professor.html', context)
+        elif user.role == 'student':
+            context ={
+                'feedbackforms': get_students_feedbackforms(user)
+            }
+            return render(request, 'home/student.html', context)
         else:
             return HttpResponse("Hello, " + request.user.username)
     else:
@@ -65,4 +70,18 @@ def get_professors_feedbackforms_by_group(professor):
                 if feedbackform.group_rel == group:
                     feedbackforms_for_group.append(feedbackform)
             feedbackforms.append((group, feedbackforms_for_group))
+    return feedbackforms
+
+def get_students_feedbackforms(student):
+    feedbackforms = []
+    groups = []
+    for group in Group.objects.all():
+        for stud in group.students.all():
+            if stud == student:
+                groups.append(group)
+                continue
+    for feedbackform in Feedback.objects.all():
+        for group in groups:
+            if feedbackform.group_rel == group:
+                feedbackforms.append(feedbackform)
     return feedbackforms
