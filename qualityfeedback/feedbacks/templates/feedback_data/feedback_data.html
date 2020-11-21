@@ -5,8 +5,10 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Feedback Data For {{ feedback_name }}</h1>
-    {% for item in feedback_items %}
-        <li>{{ item.1 }}</li>
+    <h1>Feedback Data For <p style="color:Gray">{{ feedback_name }}</p></h1>
+    {% for question_data in feedback_data %}
+        {% for item in question_data %}
+            {{ item }}<br>
+        {% endfor %}
     {% endfor %}
 {% endblock %}
