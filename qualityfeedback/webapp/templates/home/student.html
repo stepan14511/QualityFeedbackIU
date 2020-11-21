@@ -1,0 +1,16 @@
+{% extends 'home/base_professor.html' %}
+
+{% block title %}
+    Main Page
+{% endblock %}
+
+{% block content %}
+    <h1>Main Page For Student</h1>
+    <br><br>
+
+    {% for feedbackform in feedbackforms %}
+        <a href="/feedbacks/feedback/{{ feedbackform.id }}/">
+            {{ feedbackform.name }}</a>
+        <br>
+    {% endfor %}
+{% endblock %}
