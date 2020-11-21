@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render
 
 from django.contrib import auth
@@ -10,6 +10,8 @@ from webapp.models import Group
 def index(request):
 	user = auth.get_user(request)
 	if user.is_authenticated:
+		if user.role != 'professor':
+			return HttpResponseForbidden("Access denied")
 		if request.method == "POST":
 			form = CreateFeedbackForm(request.POST)
 			if form.is_valid():
@@ -36,6 +38,8 @@ def index(request):
 
 
 				return HttpResponseRedirect('/create/thanks/?id='+str(feedback.id))
+			else:
+				print("invalid form")
 
 		context = {
 			'title': 'Create a Feedback Form',
