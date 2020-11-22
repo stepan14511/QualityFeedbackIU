@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 
     'feedbacks',
     'home_page',
-#    'feedback_form_creation',
+    'feedback_form_creation',
 ]
 
 MIDDLEWARE = [
